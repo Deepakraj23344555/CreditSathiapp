@@ -9,6 +9,7 @@ TRANSLATIONS = {
         "nav_lenders": "🏦 Step 3: Get Loans",
         "nav_ca": "🧑‍💼 CA/DSA Portal",
         "nav_sim": "🧪 Simulator",
+        "nav_growth": "🚀 Growth & Capital",
         "nav_ai": "💡 AI Advisor",
         "hero_t1": "Understand Your Business Credit.",
         "hero_t2": "Unlock New Opportunities.",
@@ -26,13 +27,12 @@ TRANSLATIONS = {
         "score_title": "Your Credit Health Score",
         "insights_title": "What’s Holding You Back",
         "lenders_title": "Loans You’re Eligible For Today",
-        "trust_msg": "🔒 Bank-grade 256-bit encryption. RBI Compliant Data Security."
-        "nav_growth": "🚀 Growth & Capital",
+        "trust_msg": "🔒 Bank-grade 256-bit encryption. RBI Compliant Data Security.",
         "voice_btn": "🎤 Tap to Speak (Voice AI)",
         "predictive_title": "🔮 Predictive Cashflow Radar",
         "upi_title": "📱 Digital Trust (UPI Underwriting)",
         "invoice_title": "📄 Invoice Discounting (Get Paid Early)",
-        "card_title": "💳 CreditSaathi Capital Card",
+        "card_title": "💳 CreditSaathi Capital Card"
     },
     "hi": {
         "nav_home": "🏠 होम",
@@ -41,6 +41,7 @@ TRANSLATIONS = {
         "nav_lenders": "🏦 चरण 3: ऋण प्राप्त करें",
         "nav_ca": "🧑‍💼 सीए/डीएसए पोर्टल",
         "nav_sim": "🧪 सिमुलेटर",
+        "nav_growth": "🚀 ग्रोथ और कैपिटल",
         "nav_ai": "💡 एआई सलाहकार",
         "hero_t1": "अपने व्यापार क्रेडिट को समझें।",
         "hero_t2": "नए अवसर अनलॉक करें।",
@@ -58,7 +59,12 @@ TRANSLATIONS = {
         "score_title": "आपका क्रेडिट हेल्थ स्कोर",
         "insights_title": "सुधार के क्षेत्र",
         "lenders_title": "आज आप इन ऋणों के पात्र हैं",
-        "trust_msg": "🔒 बैंक-ग्रेड 256-बिट एन्क्रिप्शन। RBI अनुपालन डेटा सुरक्षा।"
+        "trust_msg": "🔒 बैंक-ग्रेड 256-बिट एन्क्रिप्शन। RBI अनुपालन डेटा सुरक्षा।",
+        "voice_btn": "🎤 बोलने के लिए टैप करें",
+        "predictive_title": "🔮 कैशफ्लो रडार",
+        "upi_title": "📱 डिजिटल ट्रस्ट (UPI)",
+        "invoice_title": "📄 चालान छूट",
+        "card_title": "💳 क्रेडिटसाथी कैपिटल कार्ड"
     },
     "es": {
         "nav_home": "🏠 Inicio",
@@ -67,6 +73,7 @@ TRANSLATIONS = {
         "nav_lenders": "🏦 Paso 3: Préstamos",
         "nav_ca": "🧑‍💼 Portal CA/DSA",
         "nav_sim": "🧪 Simulador",
+        "nav_growth": "🚀 Crecimiento y Capital",
         "nav_ai": "💡 Asesor IA",
         "hero_t1": "Entienda su crédito comercial.",
         "hero_t2": "Desbloquee nuevas oportunidades.",
@@ -84,7 +91,12 @@ TRANSLATIONS = {
         "score_title": "Su Puntaje de Salud Crediticia",
         "insights_title": "Áreas de Mejora",
         "lenders_title": "Préstamos para los que califica hoy",
-        "trust_msg": "🔒 Cifrado de grado bancario. Seguridad de datos compatible."
+        "trust_msg": "🔒 Cifrado de grado bancario. Seguridad de datos compatible.",
+        "voice_btn": "🎤 Toca para hablar",
+        "predictive_title": "🔮 Radar de flujo de caja",
+        "upi_title": "📱 Confianza digital (UPI)",
+        "invoice_title": "📄 Descuento de facturas",
+        "card_title": "💳 Tarjeta Capital"
     },
     "ar": {
         "nav_home": "🏠 الرئيسية",
@@ -93,6 +105,7 @@ TRANSLATIONS = {
         "nav_lenders": "🏦 الخطوة 3: الحصول على قروض",
         "nav_ca": "🧑‍💼 بوابة الشركاء",
         "nav_sim": "🧪 محاكاة",
+        "nav_growth": "🚀 النمو ورأس المال",
         "nav_ai": "💡 مستشار ذكاء اصطناعي",
         "hero_t1": "افهم الائتمان التجاري الخاص بك.",
         "hero_t2": "افتح فرصًا جديدة.",
@@ -110,7 +123,12 @@ TRANSLATIONS = {
         "score_title": "درجة صحتك الائتمانية",
         "insights_title": "ما الذي يعيقك",
         "lenders_title": "القروض التي أنت مؤهل لها اليوم",
-        "trust_msg": "🔒 تشفير بدرجة بنكية 256 بت. أمان بيانات متوافق."
+        "trust_msg": "🔒 تشفير بدرجة بنكية 256 بت. أمان بيانات متوافق.",
+        "voice_btn": "🎤 اضغط للتحدث",
+        "predictive_title": "🔮 رادار التدفق النقدي",
+        "upi_title": "📱 الثقة الرقمية",
+        "invoice_title": "📄 خصم الفواتير",
+        "card_title": "💳 بطاقة الائتمان"
     }
 }
 
