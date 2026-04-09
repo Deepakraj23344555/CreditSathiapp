@@ -26,45 +26,78 @@ def inject_premium_dark_theme():
         footer {{visibility: hidden;}}
         .stDeployButton {{display: none;}}
 
-        /* Global Typography & Background */
-        html, body, [class*="css"] {{
-            font-family: 'Inter', -apple-system, sans-serif !important;
-            color: #FFFFFF !important;
-        }}
-        
+        /* Global Background */
         .stApp {{
             background: radial-gradient(circle at 15% 0%, #112A4C 0%, #0B1F3A 40%, #05101F 100%) !important;
             background-attachment: fixed !important;
         }}
 
-        /* Headings */
-        h1, h2, h3, h4, .st-emotion-cache-10trblm h1 {{
+        /* =========================================================
+           CRITICAL FIXES: FORCING HIGH CONTRAST ON ALL SCREENS
+           ========================================================= */
+        
+        /* 1. Main Screen Text & Markdown */
+        html, body, [class*="css"], .stMarkdown p, .stText p, li {{
+            font-family: 'Inter', -apple-system, sans-serif !important;
+            color: #FFFFFF !important;
+        }}
+
+        /* 2. Headings */
+        h1, h2, h3, h4, h5, h6, .st-emotion-cache-10trblm h1 {{
             color: #FFFFFF !important;
             font-weight: 700 !important;
             letter-spacing: -0.02em;
         }}
 
-        /* --- CRITICAL FIX: SIDEBAR CONTRAST --- */
-        /* Force all text inside the sidebar to be a readable light color */
+        /* 3. All Input Labels (Text above inputs, radio buttons, checkboxes) */
+        label p, .stRadio p, .stCheckbox p {{
+            color: #CBD5F5 !important;
+            font-weight: 500 !important;
+            font-size: 15px !important;
+        }}
+
+        /* 4. Streamlit TABS (Top navigation inside pages) */
+        button[data-baseweb="tab"] {{
+            background-color: transparent !important;
+        }}
+        button[data-baseweb="tab"] p {{
+            color: #94A3B8 !important; /* Unselected Tab Text */
+            font-weight: 500 !important;
+            font-size: 16px !important;
+        }}
+        button[data-baseweb="tab"][aria-selected="true"] p {{
+            color: #14B8A6 !important; /* Selected Tab Text - Glowing Teal */
+            font-weight: 700 !important;
+        }}
+        button[data-baseweb="tab"][aria-selected="true"] {{
+            border-bottom: 2px solid #14B8A6 !important;
+        }}
+
+        /* 5. Dataframes & Tables */
+        .stDataFrame, .stTable {{
+            color: #FFFFFF !important;
+        }}
+        [data-testid="stDataFrame"] div {{
+            background-color: transparent !important;
+            color: #FFFFFF !important;
+        }}
+
+        /* 6. Sidebar Full Contrast Override */
         [data-testid="stSidebar"] {{
-            background-color: rgba(5, 16, 31, 0.85) !important; /* Slightly darker for better base contrast */
+            background-color: rgba(5, 16, 31, 0.85) !important;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-right: 1px solid {COLORS["border"]} !important;
         }}
-        
-        /* Brute-force white text for everything in the sidebar */
         [data-testid="stSidebar"] * {{
             color: #F8FAFC !important; 
         }}
-        
-        /* Specifically target Streamlit Radio Buttons to ensure text is white */
         div[role="radiogroup"] label p {{
             color: #FFFFFF !important;
             font-size: 15px !important;
             font-weight: 500 !important;
         }}
-        /* -------------------------------------- */
+        /* ========================================================= */
         
         /* Premium Glass Cards */
         .premium-card {{
@@ -101,7 +134,7 @@ def inject_premium_dark_theme():
             transform: translateY(-2px) scale(1.01) !important;
         }}
 
-        /* Inputs - Increased Brightness for Readability */
+        /* Inputs */
         .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {{
             background-color: rgba(255, 255, 255, 0.05) !important;
             border: 1px solid rgba(255, 255, 255, 0.2) !important; 
@@ -112,8 +145,12 @@ def inject_premium_dark_theme():
             border-color: #14B8A6 !important;
             box-shadow: 0 0 0 1px #14B8A6 !important;
         }}
+        /* Dropdown options text fix */
+        li[role="option"] {{
+            color: #0B1F3A !important; /* Keep dropdown options readable when open */
+        }}
 
-        /* Typography */
+        /* Custom Typography Classes */
         .text-muted {{ color: {COLORS["text_muted"]} !important; font-size: 14px; line-height: 1.6; font-weight: 400; }}
         .text-secondary {{ color: {COLORS["secondary"]} !important; line-height: 1.6; }}
         .score-huge {{ font-size: 64px; font-weight: 800; color: #FFFFFF; line-height: 1; margin: 10px 0; }}
