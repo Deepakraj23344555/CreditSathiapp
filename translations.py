@@ -7,11 +7,17 @@ TRANSLATIONS = {
         "nav_assess": "📝 Step 1: Enter Details",
         "nav_dash": "📊 Step 2: View Score",
         "nav_lenders": "🏦 Step 3: Get Loans",
+        "nav_ca": "🧑‍💼 CA/DSA Portal",
+        "nav_sim": "🧪 Simulator",
+        "nav_ai": "💡 AI Advisor",
         "hero_t1": "Understand Your Business Credit.",
         "hero_t2": "Unlock New Opportunities.",
         "hero_sub": "See your creditworthiness the way lenders do — and take control of your financial future in less than 2 minutes.",
         "hero_btn": "Check My Score Now",
         "biz_name": "Business Name",
+        "pan_num": "Business PAN",
+        "aadhaar_kyc": "Aadhaar (e-KYC)",
+        "aa_fetch": "🔗 Fetch via Account Aggregator (AA)",
         "turnover": "Approximate Annual Turnover (₹)",
         "vintage": "How old is your business? (Years)",
         "bank_bal": "Average Monthly Bank Balance (₹)",
@@ -19,18 +25,25 @@ TRANSLATIONS = {
         "btn_generate": "Generate My Report",
         "score_title": "Your Credit Health Score",
         "insights_title": "What’s Holding You Back",
-        "lenders_title": "Loans You’re Eligible For Today"
+        "lenders_title": "Loans You’re Eligible For Today",
+        "trust_msg": "🔒 Bank-grade 256-bit encryption. RBI Compliant Data Security."
     },
     "hi": {
         "nav_home": "🏠 होम",
         "nav_assess": "📝 चरण 1: विवरण दर्ज करें",
         "nav_dash": "📊 चरण 2: स्कोर देखें",
         "nav_lenders": "🏦 चरण 3: ऋण प्राप्त करें",
+        "nav_ca": "🧑‍💼 सीए/डीएसए पोर्टल",
+        "nav_sim": "🧪 सिमुलेटर",
+        "nav_ai": "💡 एआई सलाहकार",
         "hero_t1": "अपने व्यापार क्रेडिट को समझें।",
         "hero_t2": "नए अवसर अनलॉक करें।",
         "hero_sub": "अपने क्रेडिट को ऋणदाताओं की तरह देखें - और 2 मिनट से कम समय में अपने वित्तीय भविष्य पर नियंत्रण रखें।",
         "hero_btn": "अभी अपना स्कोर जांचें",
         "biz_name": "व्यवसाय का नाम",
+        "pan_num": "पैन नंबर",
+        "aadhaar_kyc": "आधार (e-KYC)",
+        "aa_fetch": "🔗 अकाउंट एग्रीगेटर (AA) से डेटा लाएं",
         "turnover": "अनुमानित वार्षिक टर्नओवर (₹)",
         "vintage": "आपका व्यवसाय कितना पुराना है? (वर्ष)",
         "bank_bal": "औसत मासिक बैंक बैलेंस (₹)",
@@ -38,37 +51,51 @@ TRANSLATIONS = {
         "btn_generate": "मेरी रिपोर्ट बनाएं",
         "score_title": "आपका क्रेडिट हेल्थ स्कोर",
         "insights_title": "सुधार के क्षेत्र",
-        "lenders_title": "आज आप इन ऋणों के पात्र हैं"
+        "lenders_title": "आज आप इन ऋणों के पात्र हैं",
+        "trust_msg": "🔒 बैंक-ग्रेड 256-बिट एन्क्रिप्शन। RBI अनुपालन डेटा सुरक्षा।"
     },
     "es": {
         "nav_home": "🏠 Inicio",
         "nav_assess": "📝 Paso 1: Detalles",
         "nav_dash": "📊 Paso 2: Puntaje",
         "nav_lenders": "🏦 Paso 3: Préstamos",
+        "nav_ca": "🧑‍💼 Portal CA/DSA",
+        "nav_sim": "🧪 Simulador",
+        "nav_ai": "💡 Asesor IA",
         "hero_t1": "Entienda su crédito comercial.",
         "hero_t2": "Desbloquee nuevas oportunidades.",
         "hero_sub": "Vea su solvencia como lo hacen los prestamistas y tome el control en menos de 2 minutos.",
         "hero_btn": "Revisar Mi Puntaje Ahora",
         "biz_name": "Nombre de la empresa",
+        "pan_num": "Número de Identificación Fiscal",
+        "aadhaar_kyc": "Identidad (e-KYC)",
+        "aa_fetch": "🔗 Obtener datos bancarios (AA)",
         "turnover": "Facturación anual aproximada",
         "vintage": "Antigüedad de la empresa (Años)",
         "bank_bal": "Saldo bancario mensual promedio",
-        "gst": "Estado de declaración de impuestos",
+        "gst": "Estado de impuestos",
         "btn_generate": "Generar Mi Informe",
         "score_title": "Su Puntaje de Salud Crediticia",
         "insights_title": "Áreas de Mejora",
-        "lenders_title": "Préstamos para los que califica hoy"
+        "lenders_title": "Préstamos para los que califica hoy",
+        "trust_msg": "🔒 Cifrado de grado bancario. Seguridad de datos compatible."
     },
     "ar": {
         "nav_home": "🏠 الرئيسية",
         "nav_assess": "📝 الخطوة 1: أدخل التفاصيل",
         "nav_dash": "📊 الخطوة 2: عرض النتيجة",
         "nav_lenders": "🏦 الخطوة 3: الحصول على قروض",
+        "nav_ca": "🧑‍💼 بوابة الشركاء",
+        "nav_sim": "🧪 محاكاة",
+        "nav_ai": "💡 مستشار ذكاء اصطناعي",
         "hero_t1": "افهم الائتمان التجاري الخاص بك.",
         "hero_t2": "افتح فرصًا جديدة.",
         "hero_sub": "شاهد جدارتك الائتمانية بالطريقة التي يراها بها المقرضون - وسيطر على مستقبلك المالي في أقل من دقيقتين.",
         "hero_btn": "تحقق من نتيجتي الآن",
         "biz_name": "اسم العمل",
+        "pan_num": "الرقم الضريبي",
+        "aadhaar_kyc": "التحقق من الهوية",
+        "aa_fetch": "🔗 جلب عبر مجمع الحسابات",
         "turnover": "حجم المبيعات السنوي التقريبي",
         "vintage": "كم عمر عملك؟ (سنوات)",
         "bank_bal": "متوسط الرصيد البنكي الشهري",
@@ -76,7 +103,8 @@ TRANSLATIONS = {
         "btn_generate": "إنشاء تقريري",
         "score_title": "درجة صحتك الائتمانية",
         "insights_title": "ما الذي يعيقك",
-        "lenders_title": "القروض التي أنت مؤهل لها اليوم"
+        "lenders_title": "القروض التي أنت مؤهل لها اليوم",
+        "trust_msg": "🔒 تشفير بدرجة بنكية 256 بت. أمان بيانات متوافق."
     }
 }
 
@@ -86,5 +114,4 @@ def t(key):
     Fetches string based on active language. Falls back to English if key is missing.
     """
     lang = st.session_state.get('lang', 'en')
-    # 1. Try target language. 2. Fallback to English dict. 3. Fallback to raw key string.
     return TRANSLATIONS.get(lang, TRANSLATIONS['en']).get(key, TRANSLATIONS['en'].get(key, key))
