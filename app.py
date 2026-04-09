@@ -6,10 +6,10 @@ import pandas as pd
 from translations import t
 
 # --- PREMIUM UI COMPONENTS ---
-from ui_components import inject_premium_dark_theme, inject_global_language_css, metric_kpi, status_badge, premium_lender_card, apply_dark_theme, COLORS
+from ui_components import inject_premium_dark_theme, inject_global_language_css, metric_kpi, status_badge, premium_lender_card, apply_dark_theme, COLORS, create_gauge_chart
 
 # --- BACKEND LOGIC ---
-from utils import create_gauge_chart
+from scoring import calculate_crs, get_advanced_lenders, get_esg_score
 from scoring import calculate_crs, get_advanced_lenders, get_esg_score
 from insights import get_behavioral_insights, generate_storytelling
 from simulator import render_simulator
