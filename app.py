@@ -2,6 +2,7 @@
 import streamlit as st
 import time
 import pandas as pd
+import plotly.express as px  # <-- ADD THIS LINE
 from utils import inject_custom_css, create_gauge_chart, create_breakdown_pie, create_factor_bar
 from scoring import calculate_crs, get_gap_analysis, get_action_plan, get_eligible_lenders
 
@@ -9,6 +10,7 @@ from scoring import calculate_crs, get_gap_analysis, get_action_plan, get_eligib
 st.set_page_config(page_title="CreditSaathi | MSME Credit Intelligence", page_icon="📈", layout="wide")
 inject_custom_css()
 
+# ... (keep the rest of your app.py exactly the same)
 # Session State Initialization
 if 'crs_score' not in st.session_state:
     st.session_state.crs_score = None
