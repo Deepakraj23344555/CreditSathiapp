@@ -134,7 +134,16 @@ def create_factor_bar(components):
     
     fig = go.Figure(data=[
         go.Bar(name='Achieved', x=labels, y=values, marker_color=COLORS["accent"]),
-        go.Bar(name='Max Potential', x=labels, y=max_values, marker_color=COLORS["primary"]+"40")
+        # Fixed: Using the hex_to_rgba helper instead of string concatenation
+        go.Bar(name='Max Potential', x=labels, y=max_values, marker_color=hex_to_rgba(COLORS["primary"], 0.25))
     ])
-    fig.update_layout(barmode='overlay', title="Factor Performance vs Potential", height=350, margin=dict(l=20, r=20, t=50, b=20), paper_bgcolor="rgba(0,0,0,0)")
+    
+    fig.update_layout(
+        barmode='overlay', 
+        title="Factor Performance vs Potential", 
+        height=350, 
+        margin=dict(l=20, r=20, t=50, b=20), 
+        paper_bgcolor="rgba(0,0,0,0)",
+        font={'color': COLORS["text"]}
+    )
     return fig
