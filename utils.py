@@ -1,12 +1,7 @@
+# utils.py
 import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
-
-COLORS = {
-    "primary": "#0B1F3A", "secondary": "#1E3A8A", "accent": "#14B8A6",
-    "background": "#F8FAFC", "success": "#22C55E", "warning": "#F59E0B",
-    "danger": "#EF4444", "text": "#1E293B", "surface": "rgba(255, 255, 255, 0.95)"
-}
 
 # --- GLOBAL TRANSLATIONS DICTIONARY ---
 TRANSLATIONS = {
