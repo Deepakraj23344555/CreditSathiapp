@@ -8,32 +8,32 @@ TRANSLATIONS = {
     "English 🇺🇸": {
         "nav_home": "🏠 Home", "nav_assess": "📝 Step 1: Enter Details", "nav_dash": "📊 Step 2: View Score",
         "nav_gap": "📋 Action Plan", "nav_lenders": "🏦 Step 3: Get Loans", "nav_sim": "🧪 Simulator",
-        "nav_ai": "💡 AI Advisor"
+        "nav_ai": "💡 AI Advisor",
+        "trust_msg": "🔒 Bank-grade 256-bit encryption. RBI Compliant Data Security.",
+        "hero_t1": "Understand Your Business Credit.",
+        "hero_t2": "Unlock New Opportunities.",
+        "hero_sub": "See your creditworthiness the way lenders do — and take control of your financial future in less than 2 minutes.",
+        "hero_btn": "Check My Score Now"
     },
     "Hindi 🇮🇳": {
-        "nav_home": "🏠 होम", "nav_assess": "📝 चरण 1: विवरण दर्ज करें", "nav_dash": "📊 चरण 2: स्कोर देखें",
-        "nav_gap": "📋 कार्य योजना", "nav_lenders": "🏦 चरण 3: ऋण प्राप्त करें", "nav_sim": "🧪 सिमुलेटर",
-        "nav_ai": "💡 एआई सलाहकार"
+        "nav_home": "🏠 होम", "nav_assess": "📝 चरण 1: विवरण", "nav_dash": "📊 चरण 2: स्कोर",
+        "nav_gap": "📋 कार्य योजना", "nav_lenders": "🏦 चरण 3: ऋण", "nav_sim": "🧪 सिमुलेटर",
+        "nav_ai": "💡 एआई सलाहकार",
+        "trust_msg": "🔒 बैंक-ग्रेड 256-बिट एन्क्रिप्शन। RBI अनुपालन डेटा सुरक्षा।",
+        "hero_t1": "अपने व्यापार क्रेडिट को समझें।",
+        "hero_t2": "नए अवसर अनलॉक करें।",
+        "hero_sub": "अपने क्रेडिट को ऋणदाताओं की तरह देखें - और 2 मिनट से कम समय में अपने वित्तीय भविष्य पर नियंत्रण रखें।",
+        "hero_btn": "अभी अपना स्कोर जांचें"
     },
     "Spanish 🇪🇸": {
-        "nav_home": "🏠 Inicio", "nav_assess": "📝 Paso 1: Detalles", "nav_dash": "📊 Paso 2: Ver Puntaje",
-        "nav_gap": "📋 Plan de Acción", "nav_lenders": "🏦 Paso 3: Obtener Préstamos", "nav_sim": "🧪 Simulador",
-        "nav_ai": "💡 Asesor IA"
-    },
-    "French 🇫🇷": {
-        "nav_home": "🏠 Accueil", "nav_assess": "📝 Étape 1: Détails", "nav_dash": "📊 Étape 2: Voir le Score",
-        "nav_gap": "📋 Plan d'Action", "nav_lenders": "🏦 Étape 3: Obtenir des Prêts", "nav_sim": "🧪 Simulateur",
-        "nav_ai": "💡 Conseiller IA"
-    },
-    "Arabic 🇦🇪": {
-        "nav_home": "🏠 الرئيسية", "nav_assess": "📝 الخطوة 1: التفاصيل", "nav_dash": "📊 الخطوة 2: عرض النتيجة",
-        "nav_gap": "📋 خطة العمل", "nav_lenders": "🏦 الخطوة 3: الحصول قروض", "nav_sim": "🧪 محاكاة",
-        "nav_ai": "💡 مستشار ذكاء اصطناعي"
-    },
-    "Mandarin 🇨🇳": {
-        "nav_home": "🏠 首页", "nav_assess": "📝 第一步：输入详情", "nav_dash": "📊 第二步：查看分数",
-        "nav_gap": "📋 行动计划", "nav_lenders": "🏦 第三步：获取贷款", "nav_sim": "🧪 模拟器",
-        "nav_ai": "💡 AI 顾问"
+        "nav_home": "🏠 Inicio", "nav_assess": "📝 Paso 1: Detalles", "nav_dash": "📊 Paso 2: Puntaje",
+        "nav_gap": "📋 Plan de Acción", "nav_lenders": "🏦 Paso 3: Préstamos", "nav_sim": "🧪 Simulador",
+        "nav_ai": "💡 Asesor IA",
+        "trust_msg": "🔒 Cifrado de grado bancario. Seguridad de datos compatible.",
+        "hero_t1": "Entienda su crédito comercial.",
+        "hero_t2": "Desbloquee nuevas oportunidades.",
+        "hero_sub": "Vea su solvencia como lo hacen los prestamistas y tome el control en menos de 2 minutos.",
+        "hero_btn": "Revisar Mi Puntaje Ahora"
     }
 }
 
