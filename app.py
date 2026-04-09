@@ -1,8 +1,8 @@
 import streamlit as st
 import time
 
-# --- PREMIUM UI ENGINE ---
-from ui_components import inject_premium_css, metric_kpi, status_badge, premium_lender_card, apply_light_theme, COLORS
+# --- PREMIUM DARK UI ENGINE ---
+from ui_components import inject_premium_dark_theme, metric_kpi, status_badge, premium_lender_card, apply_dark_theme, COLORS
 
 # --- BACKEND LOGIC (Untouched) ---
 from utils import create_gauge_chart, t, render_trust_layer
@@ -12,8 +12,11 @@ from simulator import render_simulator
 from ai_advisor import render_ai_advisor
 from pdf_report import generate_pdf_report
 
-st.set_page_config(page_title="CreditSaathi", page_icon="📈", layout="wide", initial_sidebar_state="expanded")
-inject_premium_css()
+# 1. Config First
+st.set_page_config(page_title="CreditSaathi Premium", page_icon="📈", layout="wide", initial_sidebar_state="expanded")
+
+# 2. Inject Global Theme
+inject_premium_dark_theme()
 
 # --- STATE INIT ---
 if 'crs_score' not in st.session_state: st.session_state.crs_score = None
@@ -21,10 +24,10 @@ if 'user_inputs' not in st.session_state: st.session_state.user_inputs = {}
 
 # --- CLEAN SIDEBAR NAVIGATION ---
 with st.sidebar:
-    st.markdown(f"<h2 style='color: {COLORS['primary']}; font-family: Poppins;'>CreditSaathi</h2>", unsafe_allow_html=True)
-    st.markdown("<p style='color: #475569; font-size: 14px; margin-bottom: 20px;'>MSME Growth Platform</p>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color: #FFFFFF;'>CreditSaathi <span style='color: {COLORS['accent']};'>.</span></h2>", unsafe_allow_html=True)
+    st.markdown("<p style='color: #94A3B8; font-size: 14px; margin-bottom: 20px;'>Institutional Grade Engine</p>", unsafe_allow_html=True)
     
-    # Simplified Navigation
+    # Simplified Guided Navigation
     page = st.radio("Main Menu", [
         "🏠 Home", 
         "📝 Step 1: Enter Details", 
@@ -34,7 +37,7 @@ with st.sidebar:
     ])
     
     st.markdown("<br><br><br>", unsafe_allow_html=True)
-    render_trust_layer() # Keep trust signals visible
+    render_trust_layer()
 
 # --- ROUTING LOGIC ---
 
@@ -45,7 +48,7 @@ if page == "🏠 Home":
         st.markdown(f"""
         <div style="text-align: center; margin-bottom: 40px;">
             <h1 style="font-size: 52px; line-height: 1.2;">Understand Your Business Credit.<br><span style="color: {COLORS['accent']};">Unlock New Opportunities.</span></h1>
-            <p class="text-muted" style="font-size: 18px; max-width: 600px; margin: 20px auto;">
+            <p class="text-secondary" style="font-size: 18px; max-width: 600px; margin: 20px auto;">
                 See your creditworthiness the way lenders do — and take control of your financial future in less than 2 minutes.
             </p>
         </div>
@@ -58,21 +61,21 @@ if page == "🏠 Home":
 
 elif page == "📝 Step 1: Enter Details":
     st.title("Tell Us About Your Business")
-    st.markdown("<p class='text-muted'>This information is secure and will only be used to calculate your health score.</p>", unsafe_allow_html=True)
+    st.markdown("<p class='text-muted'>This information is 256-bit encrypted and only used to calculate your health score.</p>", unsafe_allow_html=True)
     
     with st.form("input_form"):
-        st.markdown("<div class='clean-card'>", unsafe_allow_html=True)
+        st.markdown("<div class='premium-card'>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
         
         with col1:
             biz_name = st.text_input("Business Name", placeholder="e.g., Sharma Traders")
-            industry = st.selectbox("What is your business type?", ["Retail", "Manufacturing", "Services", "IT/Tech", "Other"], help="Select the category that best fits your daily operations.")
-            turnover = st.number_input("Approximate Annual Turnover (₹)", min_value=0, value=1500000, step=100000, help="Your total sales for the year.")
+            industry = st.selectbox("What is your business type?", ["Retail", "Manufacturing", "Services", "IT/Tech", "Other"])
+            turnover = st.number_input("Approximate Annual Turnover (₹)", min_value=0, value=1500000, step=100000)
             vintage = st.slider("How old is your business? (Years)", min_value=0.0, max_value=20.0, value=2.5, step=0.5)
             
         with col2:
-            bank_balance = st.number_input("Average Monthly Bank Balance (₹)", min_value=0, value=50000, step=10000, help="The average amount sitting in your current account.")
-            gst_status = st.selectbox("GST Filing Status", ["Regular (Up to date)", "Delayed (< 3 months)", "Irregular", "Not Registered"], help="Lenders look closely at GST compliance.")
+            bank_balance = st.number_input("Average Monthly Bank Balance (₹)", min_value=0, value=50000, step=10000)
+            gst_status = st.selectbox("GST Filing Status", ["Regular (Up to date)", "Delayed (< 3 months)", "Irregular", "Not Registered"])
             loan_history = st.radio("Do you currently have any active business loans?", ["No", "Yes"])
             emi_amount = st.number_input("Total Monthly EMIs you pay (₹)", value=0) if loan_history == "Yes" else 0
             
@@ -102,20 +105,20 @@ elif page == "📊 Step 2: View Score":
         
         with col_main:
             cat = "Excellent" if score >= 750 else "Good" if score >= 600 else "Needs Work"
-            color_key = "success" if score >= 700 else "warning"
+            color_key = COLORS['accent'] if score >= 700 else COLORS['warning']
             
             st.markdown(f"""
-            <div class="clean-card" style="display: flex; justify-content: space-between; align-items: center; border-top: 4px solid {COLORS[color_key]};">
+            <div class="premium-card" style="display: flex; justify-content: space-between; align-items: center; border-left: 4px solid {color_key};">
                 <div>
-                    <p style="margin:0; color: {COLORS['text_muted']}; font-weight: 600;">Overall Score</p>
+                    <p style="margin:0; color: {COLORS['text_muted']}; font-weight: 600; text-transform: uppercase;">Overall Score</p>
                     <div class="score-huge">{score}</div>
                     {status_badge(f"{cat} Category", color_key)}
                 </div>
             </div>
             """, unsafe_allow_html=True)
             
-            # Gauge chart updated for light theme
-            st.plotly_chart(apply_light_theme(create_gauge_chart(score)), use_container_width=True)
+            # Gauge chart updated for Dark theme
+            st.plotly_chart(apply_dark_theme(create_gauge_chart(score)), use_container_width=True)
             
             pdf = generate_pdf_report(score, inputs, st.session_state.components)
             st.download_button("📄 Download My Full Report", data=pdf, file_name="CreditSaathi_Report.pdf", mime="application/pdf")
@@ -124,18 +127,18 @@ elif page == "📊 Step 2: View Score":
             st.markdown("### What’s Holding You Back")
             insights = get_behavioral_insights(st.session_state.components)
             for insight in insights:
-                st.markdown(f"<div class='clean-card' style='padding: 16px; margin-bottom: 12px; border-left: 3px solid {COLORS['accent']};'><p style='margin:0; font-size: 14px;'>{insight}</p></div>", unsafe_allow_html=True)
+                st.markdown(f"<div class='premium-card' style='padding: 16px; margin-bottom: 12px; border-left: 2px solid {COLORS['accent']};'><p style='margin:0; font-size: 14px; color: {COLORS['secondary']};'>{insight}</p></div>", unsafe_allow_html=True)
                 
         st.markdown("---")
         st.markdown("### Your 90-Day Growth Plan")
-        render_simulator() # Reuses your existing simulator logic beautifully inside the new UI
+        render_simulator()
 
 elif page == "🏦 Step 3: Get Loans":
     if not st.session_state.crs_score: 
         st.warning("Please complete Step 1 first.")
     else:
         st.title("Loans You’re Eligible For Today")
-        st.markdown("<p class='text-muted'>Based on your health score, we matched you with these partners.</p>", unsafe_allow_html=True)
+        st.markdown("<p class='text-muted'>Based on your health score, we matched you with these institutional partners.</p>", unsafe_allow_html=True)
         
         df = get_advanced_lenders(st.session_state.crs_score, st.session_state.user_inputs['turnover'], st.session_state.user_inputs['vintage'])
         for _, row in df.iterrows():
