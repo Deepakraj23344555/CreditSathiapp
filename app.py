@@ -265,7 +265,7 @@ elif choice == "🏦 Match Lenders":
         lenders = lenders.sort_values('Sort_Key').drop('Sort_Key', axis=1)
         
         st.dataframe(
-            lenders.style.applymap(
+            lenders.style.map(
                 lambda v: 'color: #166534; background-color: #DCFCE7; font-weight: 600;' if v == '✅ Eligible' 
                 else ('color: #92400E; background-color: #FEF3C7; font-weight: 600;' if v == '⚠️ Improve Score' 
                 else 'color: #991B1B; background-color: #FEE2E2; font-weight: 600;'), 
