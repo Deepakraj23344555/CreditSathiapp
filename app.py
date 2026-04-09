@@ -6,15 +6,25 @@ import pandas as pd
 from translations import t
 
 # --- PREMIUM UI COMPONENTS ---
-from ui_components import inject_premium_dark_theme, inject_global_language_css, metric_kpi, status_badge, premium_lender_card, apply_dark_theme, COLORS, create_gauge_chart
+from ui_components import (
+    inject_premium_dark_theme, 
+    inject_global_language_css, 
+    status_badge, 
+    premium_lender_card, 
+    apply_dark_theme, 
+    create_gauge_chart, 
+    COLORS
+)
 
 # --- BACKEND LOGIC ---
-from scoring import calculate_crs, get_advanced_lenders, get_esg_score
-from scoring import calculate_crs, get_advanced_lenders, get_esg_score
+from scoring import calculate_crs, get_advanced_lenders
 from insights import get_behavioral_insights, generate_storytelling
 from simulator import render_simulator
 from ai_advisor import render_ai_advisor
 from pdf_report import generate_pdf_report
+
+# --- ADVANCED FEATURES ---
+from advanced_features import render_predictive_cashflow, render_virtual_card, render_invoice_discounting
 
 # 1. Config First
 st.set_page_config(page_title="CreditSaathi Global", page_icon="📈", layout="wide", initial_sidebar_state="expanded")
@@ -29,7 +39,7 @@ if 'user_inputs' not in st.session_state:
 
 # 3. Inject CSS
 inject_premium_dark_theme()
-inject_global_language_css(st.session_state.lang) # Handles custom fonts & Arabic RTL
+inject_global_language_css(st.session_state.lang) 
 
 # --- LANGUAGE SELECTOR MAPPING ---
 LANG_OPTIONS = {
@@ -46,8 +56,13 @@ with st.sidebar:
     st.markdown("<p style='color: #94A3B8; font-size: 14px; margin-bottom: 20px;'>Institutional Grade Engine</p>", unsafe_allow_html=True)
     
     st.markdown("### 🌐 Global Settings")
-    current_display = LANG_OPTIONS[st.session_state.lang]
-    selected_display = st.selectbox("Select Language", options=list(DISPLAY_TO_CODE.keys()), index=list(DISPLAY_TO_CODE.keys()).index(current_display), label_visibility="collapsed")
+    current_display = LANG_OPTIONS.get(st.session_state.lang, "English 🇺🇸")
+    selected_display = st.selectbox(
+        "Select Language", 
+        options=list(DISPLAY_TO_CODE.keys()), 
+        index=list(DISPLAY_TO_CODE.keys()).index(current_display), 
+        label_visibility="collapsed"
+    )
     
     if DISPLAY_TO_CODE[selected_display] != st.session_state.lang:
         st.session_state.lang = DISPLAY_TO_CODE[selected_display]
@@ -68,6 +83,7 @@ with st.sidebar:
         t("nav_lenders"),
         t("nav_ca"),
         t("nav_sim"),
+        t("nav_growth"), # NEW: Growth & Capital
         t("nav_ai")
     ])
     
@@ -91,7 +107,7 @@ if page == t("nav_home"):
         
         c1, c2, c3 = st.columns([2, 2, 2])
         with c2:
-            if st.button(t("hero_btn")):
+            if st.button(t("hero_btn"), use_container_width=True):
                 st.info(f"👈 Please click '{t('nav_assess')}' in the sidebar to begin.")
 
 elif page == t("nav_assess"):
@@ -101,7 +117,7 @@ elif page == t("nav_assess"):
     with st.form("input_form"):
         st.markdown("<div class='premium-card'>", unsafe_allow_html=True)
         
-        # Identity & Compliance Layer
+        # 1. Identity & Compliance Layer
         st.markdown("#### 1. Identity & Compliance")
         col_kyc1, col_kyc2, col_kyc3 = st.columns(3)
         with col_kyc1:
@@ -113,7 +129,7 @@ elif page == t("nav_assess"):
             
         st.markdown("<hr style='border-color: rgba(255,255,255,0.1);'>", unsafe_allow_html=True)
         
-        # Account Aggregator Integration Simulation
+        # 2. Account Aggregator Integration Simulation
         st.markdown("#### 2. Financial Footprint")
         aa_button = st.form_submit_button(t("aa_fetch"))
         if aa_button:
@@ -130,20 +146,33 @@ elif page == t("nav_assess"):
             loan_history = st.radio("Active business loans?", ["No", "Yes"])
             emi_amount = st.number_input("Monthly EMIs (₹)", value=0) if loan_history == "Yes" else 0
             
+        st.markdown("<hr style='border-color: rgba(255,255,255,0.1);'>", unsafe_allow_html=True)
+        
+        # 3. Alternate Data / UPI Underwriting
+        st.markdown("#### 3. Digital Trust (Alternate Data)")
+        st.markdown("<p class='text-muted' style='font-size:13px;'>Upload your PhonePe/BharatPe Merchant QR Statement to prove daily revenue and boost your score.</p>", unsafe_allow_html=True)
+        upi_upload = st.file_uploader("Upload UPI Merchant Statement (Optional)", type=["pdf", "csv"])
+        if upi_upload:
+            st.success("✅ High digital transaction velocity detected! Score multiplier applied.")
+            
         st.markdown("<br>", unsafe_allow_html=True)
-        if st.form_submit_button(t("btn_generate")):
+        if st.form_submit_button(t("btn_generate"), use_container_width=True):
             with st.spinner("Processing underwriting algorithms..."):
                 time.sleep(1.5)
+                # Apply slight boost if UPI statement uploaded
+                bonus = 25 if upi_upload else 0
                 score, comp = calculate_crs(turnover, vintage, bank_balance, gst_status, emi_amount)
+                score = min(850, score + bonus) # Ensure max score doesn't exceed 850
+                
                 st.session_state.crs_score = score
                 st.session_state.components = comp
                 st.session_state.user_inputs = {'name': biz_name, 'industry': industry, 'turnover': turnover, 'vintage': vintage, 'bank_balance': bank_balance, 'gst_status': gst_status, 'emi_amount': emi_amount}
-            st.success("Analysis Complete! Head to Step 2.")
+            st.success(f"Analysis Complete! Head to '{t('nav_dash')}'.")
         st.markdown("</div>", unsafe_allow_html=True)
 
 elif page == t("nav_dash"):
     if not st.session_state.crs_score: 
-        st.warning(f"Please complete {t('nav_assess')} first.")
+        st.warning(f"Please complete '{t('nav_assess')}' first.")
     else:
         score = st.session_state.crs_score
         inputs = st.session_state.user_inputs
@@ -170,17 +199,28 @@ elif page == t("nav_dash"):
             st.plotly_chart(apply_dark_theme(create_gauge_chart(score)), use_container_width=True)
             
             pdf = generate_pdf_report(score, inputs, st.session_state.components)
-            st.download_button("📄 Download My Full Report", data=pdf, file_name="CreditSaathi_Report.pdf", mime="application/pdf")
+            st.download_button("📄 Download My Full Report", data=pdf, file_name="CreditSaathi_Report.pdf", mime="application/pdf", use_container_width=True)
 
         with col_side:
             st.markdown(f"### {t('insights_title')}")
             insights = get_behavioral_insights(st.session_state.components)
             for insight in insights:
                 st.markdown(f"<div class='premium-card' style='padding: 16px; margin-bottom: 12px; border-left: 2px solid {COLORS['accent']};'><p style='margin:0; font-size: 14px; color: {COLORS['secondary']};'>{insight}</p></div>", unsafe_allow_html=True)
+        
+        # ADVANCED FEATURES: Predictive Cashflow & Embedded Finance
+        st.markdown("---")
+        col_adv1, col_adv2 = st.columns([1.5, 1])
+        with col_adv1:
+            render_predictive_cashflow(inputs.get('bank_balance', 50000))
+        with col_adv2:
+            if score >= 700:
+                render_virtual_card(inputs.get('name', 'Your Business'))
+            else:
+                st.info("🔒 Reach a score of 700+ to unlock the pre-approved CreditSaathi Virtual Corporate Card.")
 
 elif page == t("nav_lenders"):
     if not st.session_state.crs_score: 
-        st.warning(f"Please complete {t('nav_assess')} first.")
+        st.warning(f"Please complete '{t('nav_assess')}' first.")
     else:
         st.title(t("lenders_title"))
         st.markdown("<p class='text-muted'>Based on your health score, we matched you with these institutional partners.</p>", unsafe_allow_html=True)
@@ -200,31 +240,22 @@ elif page == t("nav_ca"):
     
     col_wa1, col_wa2 = st.columns([2, 1])
     with col_wa1:
-        # User inputs the phone number
         wa_number = st.text_input("Client Phone Number", placeholder="+91 98765 43210", label_visibility="collapsed")
-    
     with col_wa2:
-        # Functional Streamlit button
         if st.button("Generate & Send Invite", use_container_width=True):
             if len(wa_number) >= 10:
                 with st.spinner("Connecting to WhatsApp API..."):
-                    time.sleep(1.5) # Fake API delay
-                    st.success(f"✅ Secure invite link sent to {wa_number}!")
-                    
-                    # Create a real clickable wa.me link for demonstration
+                    time.sleep(1.5) 
+                    st.success(f"✅ Secure invite link ready for {wa_number}!")
                     clean_num = wa_number.replace("+", "").replace(" ", "")
                     invite_msg = "Hello! Please use this secure CreditSaathi link to fetch your GST & Bank data via Account Aggregator: https://creditsaathi.demo/invite/8a7b6c"
                     wa_url = f"https://wa.me/{clean_num}?text={invite_msg.replace(' ', '%20')}"
-                    
                     st.markdown(f"<a href='{wa_url}' target='_blank' style='color: #14B8A6; font-size: 14px; font-weight: 600; text-decoration: none;'>↗ Open in WhatsApp Web</a>", unsafe_allow_html=True)
             else:
                 st.error("⚠️ Please enter a valid 10-digit number.")
-                
     st.markdown("</div>", unsafe_allow_html=True)
     
-    # --- CLIENT PORTFOLIO TABLE ---
     st.markdown("### Client Portfolio")
-    
     mock_clients = pd.DataFrame({
         "Client Name": ["Gupta Textiles", "Verma Electronics", "Singh Logistics", "Rao Manufacturing"],
         "CRS Score": [740, 610, 480, 810],
@@ -232,17 +263,24 @@ elif page == t("nav_ca"):
         "Eligible Lenders": [12, 4, 0, 15],
         "Status": ["Prime", "Standard", "High Risk", "Super Prime"]
     })
-    
     st.dataframe(mock_clients, use_container_width=True, hide_index=True)
 
 elif page == t("nav_sim"):
     if not st.session_state.crs_score: 
-        st.warning(f"Please complete {t('nav_assess')} first.")
+        st.warning(f"Please complete '{t('nav_assess')}' first.")
     else: 
         render_simulator()
 
+elif page == t("nav_growth"):
+    st.title("🚀 Growth & Capital Ecosystem")
+    render_invoice_discounting()
+
 elif page == t("nav_ai"):
     if not st.session_state.crs_score: 
-        st.warning(f"Please complete {t('nav_assess')} first.")
+        st.warning(f"Please complete '{t('nav_assess')}' first.")
     else: 
         render_ai_advisor()
+        st.markdown("---")
+        # Voice AI Simulation Button
+        if st.button("🎙️ Tap to Speak (Bhashini Voice AI Integration)", use_container_width=True):
+            st.toast("🎤 Listening... Speak now in Hindi, English, or your regional language.")
