@@ -193,16 +193,36 @@ elif page == t("nav_ca"):
     st.title("🧑‍💼 Partner Dashboard (CA/DSA)")
     st.markdown("<p class='text-muted'>Manage your MSME clients and track their credit readiness.</p>", unsafe_allow_html=True)
     
-    st.markdown("""
-    <div class="premium-card" style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            <h3 style="margin:0;">Invite New Client</h3>
-            <p class="text-muted" style="margin:0;">Send a secure WhatsApp link to initiate Account Aggregator fetch.</p>
-        </div>
-        <button class="stButton" style="padding: 10px 20px; background: #14B8A6; border-radius: 8px; color: white; border: none; font-weight: bold;">Generate WhatsApp Invite</button>
-    </div>
-    """, unsafe_allow_html=True)
+    # --- INTERACTIVE WHATSAPP INVITE CARD ---
+    st.markdown("<div class='premium-card'>", unsafe_allow_html=True)
+    st.markdown("<h3 style='margin-top:0;'>Invite New Client</h3>", unsafe_allow_html=True)
+    st.markdown("<p class='text-muted'>Enter your client's WhatsApp number to send a secure Account Aggregator fetch link.</p>", unsafe_allow_html=True)
     
+    col_wa1, col_wa2 = st.columns([2, 1])
+    with col_wa1:
+        # User inputs the phone number
+        wa_number = st.text_input("Client Phone Number", placeholder="+91 98765 43210", label_visibility="collapsed")
+    
+    with col_wa2:
+        # Functional Streamlit button
+        if st.button("Generate & Send Invite", use_container_width=True):
+            if len(wa_number) >= 10:
+                with st.spinner("Connecting to WhatsApp API..."):
+                    time.sleep(1.5) # Fake API delay
+                    st.success(f"✅ Secure invite link sent to {wa_number}!")
+                    
+                    # Create a real clickable wa.me link for demonstration
+                    clean_num = wa_number.replace("+", "").replace(" ", "")
+                    invite_msg = "Hello! Please use this secure CreditSaathi link to fetch your GST & Bank data via Account Aggregator: https://creditsaathi.demo/invite/8a7b6c"
+                    wa_url = f"https://wa.me/{clean_num}?text={invite_msg.replace(' ', '%20')}"
+                    
+                    st.markdown(f"<a href='{wa_url}' target='_blank' style='color: #14B8A6; font-size: 14px; font-weight: 600; text-decoration: none;'>↗ Open in WhatsApp Web</a>", unsafe_allow_html=True)
+            else:
+                st.error("⚠️ Please enter a valid 10-digit number.")
+                
+    st.markdown("</div>", unsafe_allow_html=True)
+    
+    # --- CLIENT PORTFOLIO TABLE ---
     st.markdown("### Client Portfolio")
     
     mock_clients = pd.DataFrame({
