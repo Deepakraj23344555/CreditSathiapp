@@ -266,3 +266,35 @@ def apply_dark_theme(fig):
         margin=dict(l=20, r=20, t=40, b=20)
     )
     return fig
+
+def hex_to_rgba(hex_code, alpha):
+    """Converts hex color to rgba for Plotly transparency."""
+    hex_code = hex_code.lstrip('#')
+    r, g, b = tuple(int(hex_code[i:i+2], 16) for i in (0, 2, 4))
+    return f'rgba({r},{g},{b},{alpha})'
+
+def create_gauge_chart(score):
+    """Generates the premium dark-themed gauge chart."""
+    if score < 500: color = COLORS["danger"]
+    elif score < 650: color = COLORS["warning"]
+    elif score < 750: color = COLORS["accent"]
+    else: color = COLORS["success"]
+
+    fig = go.Figure(go.Indicator(
+        mode = "gauge+number",
+        value = score,
+        domain = {'x': [0, 1], 'y': [0, 1]},
+        gauge = {
+            'axis': {'range': [0, 850], 'tickwidth': 1, 'tickcolor': "rgba(255,255,255,0.2)"},
+            'bar': {'color': color, 'thickness': 0.85},
+            'bgcolor': "rgba(255,255,255,0.05)", 
+            'borderwidth': 0,
+            'steps': [
+                {'range': [0, 500], 'color': hex_to_rgba(COLORS["danger"], 0.1)},
+                {'range': [500, 650], 'color': hex_to_rgba(COLORS["warning"], 0.1)},
+                {'range': [650, 750], 'color': hex_to_rgba(COLORS["accent"], 0.1)},
+                {'range': [750, 850], 'color': hex_to_rgba(COLORS["success"], 0.1)}],
+            'threshold': {'line': {'color': "#FFFFFF", 'width': 4}, 'thickness': 0.85, 'value': score}}))
+    
+    fig.update_layout(height=300)
+    return fig
