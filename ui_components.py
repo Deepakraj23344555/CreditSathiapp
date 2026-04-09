@@ -16,6 +16,7 @@ COLORS = {
 }
 
 def inject_premium_dark_theme():
+    """Injects the base premium dark UI with high-contrast text fixes."""
     css = f"""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -57,7 +58,7 @@ def inject_premium_dark_theme():
         .stRadio label p, 
         .stCheckbox label p,
         .stSlider label p {{
-            color: #CBD5F5 !important; /* Bright light blue */
+            color: #CBD5F5 !important; 
             font-weight: 600 !important;
             font-size: 14px !important;
             letter-spacing: 0.3px !important;
@@ -143,47 +144,29 @@ def inject_premium_dark_theme():
             transform: translateY(-2px) scale(1.01) !important;
         }}
 
-        /* =========================================================
-           CRITICAL FIX: TEXT INSIDE WHITE INPUT BOXES
-           ========================================================= */
+        /* CRITICAL FIX: TEXT INSIDE WHITE INPUT BOXES */
         .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {{
-            background-color: #FFFFFF !important; /* Force white background */
+            background-color: #FFFFFF !important;
             border: 1px solid rgba(255, 255, 255, 0.2) !important; 
-            color: #0B1F3A !important; /* Force DARK text so it is visible */
+            color: #0B1F3A !important; 
             border-radius: 10px !important;
             font-weight: 500 !important;
         }}
-        
-        /* Dropdown Selected Value Text */
-        .stSelectbox div[data-baseweb="select"] span {{
-            color: #0B1F3A !important;
-        }}
-
-        /* Focus borders */
+        .stSelectbox div[data-baseweb="select"] span {{ color: #0B1F3A !important; }}
         .stTextInput input:focus, .stNumberInput input:focus, .stSelectbox div[data-baseweb="select"]:focus-within {{
             border-color: #14B8A6 !important;
             box-shadow: 0 0 0 1px #14B8A6 !important;
         }}
-        
-        /* Dropdown options menu (when clicked) */
         li[role="option"], li[role="option"] span {{
             color: #0B1F3A !important; 
             background-color: #FFFFFF !important;
         }}
-        
-        /* Placeholder text (e.g. "Press Enter to submit") */
-        ::placeholder {{
-            color: #94A3B8 !important;
-            opacity: 1 !important;
-        }}
-        
-        /* Fix the Slider Number Value making it bright white */
+        ::placeholder {{ color: #94A3B8 !important; opacity: 1 !important; }}
         .stSlider div[data-testid="stThumbValue"] {{
             color: #FFFFFF !important;
             font-weight: 700 !important;
             font-size: 14px !important;
         }}
-        /* ========================================================= */
 
         /* Custom Typography Classes */
         .text-muted {{ color: {COLORS["text_muted"]} !important; font-size: 14px; line-height: 1.6; font-weight: 400; }}
@@ -191,6 +174,51 @@ def inject_premium_dark_theme():
         .score-huge {{ font-size: 64px; font-weight: 800; color: #FFFFFF; line-height: 1; margin: 10px 0; }}
     </style>
     """
+    st.markdown(css, unsafe_allow_html=True)
+
+def inject_global_language_css(lang):
+    """Dynamically loads fonts and handles RTL layouts for global languages."""
+    css = ""
+    
+    if lang == "ar":
+        # Arabic RTL + Noto Sans Arabic Font
+        css += """
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+            html, body, [class*="css"], .stMarkdown p, .stText p, label, button, input {
+                font-family: 'Noto Sans Arabic', sans-serif !important;
+                direction: rtl !important;
+                text-align: right !important;
+            }
+            /* Flip the sidebar for Arabic */
+            [data-testid="stSidebar"] {
+                direction: rtl !important;
+            }
+            /* Fix slider directions */
+            .stSlider { direction: ltr !important; }
+        </style>
+        """
+    elif lang == "hi":
+        # Hindi + Noto Sans Devanagari Font
+        css += """
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+            html, body, [class*="css"], .stMarkdown p, .stText p, label, button {
+                font-family: 'Noto Sans Devanagari', 'Inter', sans-serif !important;
+            }
+        </style>
+        """
+    else:
+        # Standard LTR (English, Spanish, French)
+        css += """
+        <style>
+            html, body, [class*="css"] {
+                direction: ltr !important;
+                text-align: left !important;
+            }
+        </style>
+        """
+        
     st.markdown(css, unsafe_allow_html=True)
 
 def metric_kpi(title, value, icon, trend=None):
