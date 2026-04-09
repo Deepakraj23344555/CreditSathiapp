@@ -49,11 +49,20 @@ def inject_premium_dark_theme():
             letter-spacing: -0.02em;
         }}
 
-        /* 3. All Input Labels (Text above inputs, radio buttons, checkboxes) */
-        label p, .stRadio p, .stCheckbox p {{
-            color: #CBD5F5 !important;
-            font-weight: 500 !important;
-            font-size: 15px !important;
+        /* 3. BULLETPROOF INPUT LABELS (Fixes invisible form headers) */
+        div[data-testid="stWidgetLabel"] p, 
+        div[data-testid="stWidgetLabel"] span,
+        label p, 
+        label span,
+        .stRadio label p, 
+        .stCheckbox label p,
+        .stSlider label p {{
+            color: #CBD5F5 !important; /* Bright light blue for perfect contrast */
+            font-weight: 600 !important;
+            font-size: 14px !important;
+            letter-spacing: 0.3px !important;
+            opacity: 1 !important;
+            visibility: visible !important;
         }}
 
         /* 4. Streamlit TABS (Top navigation inside pages) */
@@ -147,7 +156,7 @@ def inject_premium_dark_theme():
         }}
         /* Dropdown options text fix */
         li[role="option"] {{
-            color: #0B1F3A !important; /* Keep dropdown options readable when open */
+            color: #0B1F3A !important; 
         }}
 
         /* Custom Typography Classes */
