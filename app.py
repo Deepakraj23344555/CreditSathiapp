@@ -50,22 +50,22 @@ with st.sidebar:
 
 # --- ROUTING LOGIC ---
 
-if page == "🏠 Home":
+if page == t("nav_home"):
     st.markdown("<br><br>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 8, 1])
     with col2:
         st.markdown(f"""
         <div style="text-align: center; margin-bottom: 40px;">
-            <h1 style="font-size: 52px; line-height: 1.2;">Understand Your Business Credit.<br><span style="color: {COLORS['accent']};">Unlock New Opportunities.</span></h1>
+            <h1 style="font-size: 52px; line-height: 1.2;">{t('hero_t1')}<br><span style="color: {COLORS['accent']};">{t('hero_t2')}</span></h1>
             <p class="text-secondary" style="font-size: 18px; max-width: 600px; margin: 20px auto;">
-                See your creditworthiness the way lenders do — and take control of your financial future in less than 2 minutes.
+                {t('hero_sub')}
             </p>
         </div>
         """, unsafe_allow_html=True)
         
         c1, c2, c3 = st.columns([2, 2, 2])
         with c2:
-            if st.button("Check My Score Now"):
+            if st.button(t("hero_btn")):
                 st.info("👈 Please click 'Step 1: Enter Details' in the sidebar to begin.")
 
 elif page == "📝 Step 1: Enter Details":
