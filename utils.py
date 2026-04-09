@@ -1,98 +1,86 @@
+# utils.py
 import streamlit as st
 import pandas as pd
 
 def inject_custom_css():
-    """Injects premium fintech CSS styling."""
+    """Injects premium fintech CSS styling, optimized for Streamlit's light theme."""
     st.markdown("""
     <style>
-        /* Color Palette */
-        :root {
-            --primary: #0B1F3A;
-            --secondary: #1E3A8A;
-            --accent: #14B8A6;
-            --bg: #F8FAFC;
-            --success: #22C55E;
-            --warning: #F59E0B;
-            --danger: #EF4444;
-            --text-dark: #1E293B;
-            --text-muted: #64748B;
-        }
-
-        /* Global App Styling */
-        .stApp {
-            background-color: var(--bg);
+        /* Global typography and link adjustments */
+        a {
+            color: #1E3A8A !important;
+            text-decoration: none;
         }
         
-        h1, h2, h3 {
-            color: var(--primary) !important;
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Card Styling */
+        /* Premium Card Styling */
         .metric-card {
-            background-color: white;
+            background-color: #FFFFFF;
             border-radius: 12px;
-            padding: 20px;
+            padding: 24px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid #E2E8F0;
             text-align: center;
             margin-bottom: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
         }
         
         .metric-value {
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--secondary);
-            margin: 10px 0;
+            font-size: 38px;
+            font-weight: 800;
+            color: #0B1F3A;
+            margin: 12px 0;
+            font-family: 'Inter', sans-serif;
         }
         
         .metric-label {
-            font-size: 14px;
-            color: var(--text-muted);
+            font-size: 13px;
+            color: #64748B;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            font-weight: 600;
         }
 
         /* Status Badges */
         .badge {
             display: inline-block;
-            padding: 4px 12px;
+            padding: 6px 14px;
             border-radius: 9999px;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
-        .badge-excellent { background: #DCFCE7; color: var(--success); }
-        .badge-good { background: #E0F2FE; color: var(--secondary); }
-        .badge-moderate { background: #FEF3C7; color: var(--warning); }
-        .badge-high-risk { background: #FEE2E2; color: var(--danger); }
+        .badge-excellent { background: #DCFCE7; color: #166534; border: 1px solid #BBF7D0; }
+        .badge-good { background: #E0F2FE; color: #075985; border: 1px solid #BAE6FD; }
+        .badge-moderate { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+        .badge-high-risk { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
 
-        /* Custom Button */
+        /* Custom Button Override */
         .stButton>button {
-            background-color: var(--primary);
-            color: white;
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            font-weight: 600;
-            border: none;
-            transition: all 0.3s ease;
-            width: 100%;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.2s ease !important;
         }
+        
         .stButton>button:hover {
-            background-color: var(--accent);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
-            color: white;
+            transform: translateY(-1px);
         }
-
-        /* Sidebar Styling */
-        [data-testid="stSidebar"] {
-            background-color: white;
-            border-right: 1px solid rgba(0,0,0,0.05);
+        
+        /* Ensure DataFrame headers look premium */
+        [data-testid="stDataFrame"] {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
         }
     </style>
     """, unsafe_allow_html=True)
 
 def get_lender_db():
-    """Returns mock lender dataset."""
     return pd.DataFrame({
         "Lender Name": ["HDFC Bank", "SBI", "Bajaj Finserv", "LendingKart", "KreditBee MSME", "ICICI Bank"],
         "Type": ["Bank", "PSU Bank", "NBFC", "Digital NBFC", "Digital NBFC", "Bank"],
@@ -103,7 +91,6 @@ def get_lender_db():
     })
 
 def get_ca_clients():
-    """Returns mock CA client dataset."""
     return pd.DataFrame({
         "Client Name": ["Sharma Traders", "Verma Electronics", "Gupta Textiles", "Rao Manufacturing", "Singh Logistics"],
         "Industry": ["Retail", "Electronics", "Textiles", "Manufacturing", "Logistics"],
