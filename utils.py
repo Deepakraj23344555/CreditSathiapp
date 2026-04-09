@@ -1,180 +1,128 @@
-# utils.py
 import streamlit as st
-import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
+
+# STRICT Color Palette
+COLORS = {
+    "primary": "#0B1F3A",
+    "secondary": "#1E3A8A",
+    "accent": "#14B8A6",
+    "background": "#F8FAFC",
+    "success": "#22C55E",
+    "warning": "#F59E0B",
+    "danger": "#EF4444",
+    "text": "#1E293B"
+}
 
 def inject_custom_css():
-    """Injects premium fintech CSS styling (Glassmorphism, Soft Shadows, Modern Typography)."""
-    st.markdown("""
+    """Injects custom CSS to match the premium fintech UI requirements."""
+    css = f"""
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-        /* Global App Styling */
-        .stApp {
-            background-color: #F8FAFC;
+        /* Base styling */
+        .stApp {{
+            background-color: {COLORS["background"]};
+        }}
+        h1, h2, h3 {{
+            color: {COLORS["primary"]} !important;
             font-family: 'Inter', sans-serif;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            color: #0B1F3A !important;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-        }
-
-        /* Glassmorphism & Card UI */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            margin-bottom: 24px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .glass-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        /* KPI / Metric Cards */
-        .metric-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        
-        .metric-value {
-            font-size: 42px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #0B1F3A 0%, #1E3A8A 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 8px 0;
-            line-height: 1.2;
-        }
-        
-        .metric-label {
-            font-size: 13px;
-            color: #64748B;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-
-        /* Reusable Badges */
-        .score-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        /* Custom Button Override - Rounded & Hover Effects */
-        .stButton>button {
-            border-radius: 12px !important;
-            font-weight: 600 !important;
-            padding: 0.6rem 1.5rem !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            border: none !important;
-        }
-        
-        .stButton>button[kind="primary"] {
-            background: linear-gradient(135deg, #0B1F3A 0%, #1E3A8A 100%) !important;
+        }}
+        /* Sidebar styling */
+        [data-testid="stSidebar"] {{
+            background-color: {COLORS["primary"]};
+            color: white;
+        }}
+        [data-testid="stSidebar"] * {{
             color: white !important;
-            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3) !important;
-        }
-
-        .stButton>button[kind="primary"]:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.4) !important;
-            background: linear-gradient(135deg, #1E3A8A 0%, #0B1F3A 100%) !important;
-        }
-
-        .stButton>button[kind="secondary"]:hover {
-            background-color: #F1F5F9 !important;
-            border-color: #CBD5E1 !important;
-            transform: translateY(-1px);
-        }
-
-        /* Progress Bar Enhancements */
-        .stProgress > div > div > div > div {
-            background-color: #14B8A6;
-            border-radius: 10px;
-        }
-
-        /* Sidebar Styling */
-        [data-testid="stSidebar"] {
-            background-color: #FFFFFF;
-            border-right: 1px solid #E2E8F0;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.02);
-        }
-        
-        /* Footer */
-        .app-footer {
-            text-align: center;
+        }}
+        /* Cards */
+        .fintech-card {{
+            background-color: white;
+            border-radius: 12px;
             padding: 24px;
-            color: #94A3B8;
-            font-size: 13px;
-            font-weight: 500;
-            border-top: 1px solid #E2E8F0;
-            margin-top: 40px;
-        }
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
+            border-top: 4px solid {COLORS["secondary"]};
+        }}
+        .score-display {{
+            font-size: 48px;
+            font-weight: bold;
+            color: {COLORS["primary"]};
+            text-align: center;
+        }}
+        /* Buttons */
+        .stButton>button {{
+            background-color: {COLORS["accent"]};
+            color: white;
+            border-radius: 8px;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }}
+        .stButton>button:hover {{
+            background-color: {COLORS["secondary"]};
+            color: white;
+        }}
+        /* Status Badges */
+        .badge-success {{ background-color: {COLORS["success"]}20; color: {COLORS["success"]}; padding: 4px 12px; border-radius: 16px; font-weight: bold; font-size: 14px;}}
+        .badge-warning {{ background-color: {COLORS["warning"]}20; color: {COLORS["warning"]}; padding: 4px 12px; border-radius: 16px; font-weight: bold; font-size: 14px;}}
+        .badge-danger {{ background-color: {COLORS["danger"]}20; color: {COLORS["danger"]}; padding: 4px 12px; border-radius: 16px; font-weight: bold; font-size: 14px;}}
     </style>
-    """, unsafe_allow_html=True)
-
-# --- REUSABLE UI COMPONENTS ---
-
-def card_component(label, value, badge_text=None, badge_color="#F1F5F9", text_color="#475569"):
-    """Generates a reusable, styled KPI card."""
-    badge_html = f'<div class="score-badge" style="background: {badge_color}; color: {text_color}; border: 1px solid rgba(0,0,0,0.05); margin-top: 8px;">{badge_text}</div>' if badge_text else ''
-    return f"""
-    <div class="glass-card metric-container">
-        <div class="metric-label">{label}</div>
-        <div class="metric-value">{value}</div>
-        {badge_html}
-    </div>
     """
+    st.markdown(css, unsafe_allow_html=True)
 
-def score_badge(category):
-    """Returns CSS colored badge based on category."""
-    colors = {
-        "Excellent": ("#DCFCE7", "#166534", "✅"),
-        "Good": ("#E0F2FE", "#075985", "📈"),
-        "Moderate": ("#FEF3C7", "#92400E", "⚠️"),
-        "High Risk": ("#FEE2E2", "#991B1B", "🛑")
-    }
-    bg, fg, icon = colors.get(category, ("#F1F5F9", "#475569", "▪️"))
-    return f'<span class="score-badge" style="background: {bg}; color: {fg}; border: 1px solid rgba(0,0,0,0.05);">{icon} {category}</span>'
+def create_gauge_chart(score):
+    """Creates a Plotly gauge chart for the CRS score."""
+    if score < 500:
+        color = COLORS["danger"]
+    elif score < 650:
+        color = COLORS["warning"]
+    elif score < 750:
+        color = COLORS["accent"]
+    else:
+        color = COLORS["success"]
 
-# --- DATA LOADING (CACHED FOR PERFORMANCE) ---
+    fig = go.Figure(go.Indicator(
+        mode = "gauge+number",
+        value = score,
+        domain = {'x': [0, 1], 'y': [0, 1]},
+        title = {'text': "Credit Readiness Score", 'font': {'color': COLORS["primary"], 'size': 24}},
+        gauge = {
+            'axis': {'range': [0, 850], 'tickwidth': 1, 'tickcolor': COLORS["primary"]},
+            'bar': {'color': color},
+            'bgcolor': "white",
+            'borderwidth': 2,
+            'bordercolor': "gray",
+            'steps': [
+                {'range': [0, 500], 'color': COLORS["danger"] + "30"},
+                {'range': [500, 650], 'color': COLORS["warning"] + "30"},
+                {'range': [650, 750], 'color': COLORS["accent"] + "30"},
+                {'range': [750, 850], 'color': COLORS["success"] + "30"}],
+            'threshold': {
+                'line': {'color': "black", 'width': 4},
+                'thickness': 0.75,
+                'value': score}}))
+    fig.update_layout(height=350, margin=dict(l=20, r=20, t=50, b=20), paper_bgcolor="rgba(0,0,0,0)", font={'color': COLORS["text"]})
+    return fig
 
-@st.cache_data(ttl=3600)
-def get_lender_db():
-    """Returns mock lender dataset, cached for faster reloads."""
-    return pd.DataFrame({
-        "Lender Name": ["HDFC Bank", "SBI", "Bajaj Finserv", "LendingKart", "KreditBee MSME", "ICICI Bank"],
-        "Type": ["Bank", "PSU Bank", "NBFC", "Digital NBFC", "Digital NBFC", "Bank"],
-        "Min Score Required": [720, 700, 650, 550, 500, 710],
-        "Min Turnover (₹ Lakhs)": [50, 40, 20, 10, 5, 50],
-        "Min Vintage (Years)": [3, 3, 2, 1, 0.5, 3],
-        "Interest Rate (%)": ["10.5 - 14", "9.5 - 12", "14 - 18", "18 - 24", "20 - 28", "10 - 13"]
-    })
+def create_breakdown_pie(components):
+    """Creates a pie chart showing score breakdown."""
+    labels = list(components.keys())
+    values = list(components.values())
+    fig = px.pie(names=labels, values=values, hole=0.4, title="Score Component Contribution",
+                 color_discrete_sequence=[COLORS["primary"], COLORS["secondary"], COLORS["accent"], COLORS["warning"], COLORS["success"]])
+    fig.update_layout(height=350, margin=dict(l=20, r=20, t=50, b=20), paper_bgcolor="rgba(0,0,0,0)")
+    return fig
 
-@st.cache_data(ttl=3600)
-def get_ca_clients():
-    """Returns mock CA client dataset, cached."""
-    return pd.DataFrame({
-        "Client Name": ["Sharma Traders", "Verma Electronics", "Gupta Textiles", "Rao Manufacturing", "Singh Logistics"],
-        "Industry": ["Retail", "Electronics", "Textiles", "Manufacturing", "Logistics"],
-        "Current CRS": [740, 610, 480, 810, 690],
-        "Status": ["Ready for Loan", "Needs Improvement", "High Risk", "Excellent", "Good"],
-        "Last Updated": ["2023-10-25", "2023-10-24", "2023-10-20", "2023-10-26", "2023-10-21"]
-    })
+def create_factor_bar(components):
+    """Creates a bar chart for factor performance."""
+    labels = list(components.keys())
+    values = list(components.values())
+    max_values = [30, 15, 20, 20, 15] # Max weights
+    
+    fig = go.Figure(data=[
+        go.Bar(name='Achieved', x=labels, y=values, marker_color=COLORS["accent"]),
+        go.Bar(name='Max Potential', x=labels, y=max_values, marker_color=COLORS["primary"]+"40")
+    ])
+    fig.update_layout(barmode='overlay', title="Factor Performance vs Potential", height=350, margin=dict(l=20, r=20, t=50, b=20), paper_bgcolor="rgba(0,0,0,0)")
+    return fig
