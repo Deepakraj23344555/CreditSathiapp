@@ -71,6 +71,12 @@ def inject_custom_css():
     """
     st.markdown(css, unsafe_allow_html=True)
 
+def hex_to_rgba(hex_code, alpha):
+    """Converts a hex color string to an rgba string for Plotly compatibility."""
+    hex_code = hex_code.lstrip('#')
+    r, g, b = tuple(int(hex_code[i:i+2], 16) for i in (0, 2, 4))
+    return f'rgba({r},{g},{b},{alpha})'
+
 def create_gauge_chart(score):
     """Creates a Plotly gauge chart for the CRS score."""
     if score < 500:
@@ -94,15 +100,21 @@ def create_gauge_chart(score):
             'borderwidth': 2,
             'bordercolor': "gray",
             'steps': [
-                {'range': [0, 500], 'color': COLORS["danger"] + "30"},
-                {'range': [500, 650], 'color': COLORS["warning"] + "30"},
-                {'range': [650, 750], 'color': COLORS["accent"] + "30"},
-                {'range': [750, 850], 'color': COLORS["success"] + "30"}],
+                {'range': [0, 500], 'color': hex_to_rgba(COLORS["danger"], 0.2)},
+                {'range': [500, 650], 'color': hex_to_rgba(COLORS["warning"], 0.2)},
+                {'range': [650, 750], 'color': hex_to_rgba(COLORS["accent"], 0.2)},
+                {'range': [750, 850], 'color': hex_to_rgba(COLORS["success"], 0.2)}],
             'threshold': {
                 'line': {'color': "black", 'width': 4},
                 'thickness': 0.75,
                 'value': score}}))
-    fig.update_layout(height=350, margin=dict(l=20, r=20, t=50, b=20), paper_bgcolor="rgba(0,0,0,0)", font={'color': COLORS["text"]})
+    
+    fig.update_layout(
+        height=350, 
+        margin=dict(l=20, r=20, t=50, b=20), 
+        paper_bgcolor="rgba(0,0,0,0)", 
+        font={'color': COLORS["text"]}
+    )
     return fig
 
 def create_breakdown_pie(components):
