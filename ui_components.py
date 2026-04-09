@@ -107,6 +107,14 @@ def inject_premium_dark_theme():
             font-size: 15px !important;
             font-weight: 500 !important;
         }}
+        
+        /* 🌟 NEW CRITICAL FIX: SIDEBAR WHITE BOX TEXT FIX 🌟 */
+        /* Forces text inside the white selectbox/inputs in the sidebar to be dark navy */
+        [data-testid="stSidebar"] div[data-baseweb="select"] *,
+        [data-testid="stSidebar"] .stTextInput input,
+        [data-testid="stSidebar"] .stNumberInput input {{
+            color: #0B1F3A !important;
+        }}
         /* ========================================================= */
         
         /* Premium Glass Cards */
