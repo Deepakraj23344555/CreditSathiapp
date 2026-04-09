@@ -44,14 +44,27 @@ def inject_premium_dark_theme():
             letter-spacing: -0.02em;
         }}
 
-        /* Sidebar */
+        /* --- CRITICAL FIX: SIDEBAR CONTRAST --- */
+        /* Force all text inside the sidebar to be a readable light color */
         [data-testid="stSidebar"] {{
-            background-color: rgba(5, 16, 31, 0.8) !important;
+            background-color: rgba(5, 16, 31, 0.85) !important; /* Slightly darker for better base contrast */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-right: 1px solid {COLORS["border"]} !important;
         }}
-        [data-testid="stSidebarNav"] span {{ color: #CBD5F5 !important; font-weight: 500; font-size: 15px; }}
+        
+        /* Brute-force white text for everything in the sidebar */
+        [data-testid="stSidebar"] * {{
+            color: #F8FAFC !important; 
+        }}
+        
+        /* Specifically target Streamlit Radio Buttons to ensure text is white */
+        div[role="radiogroup"] label p {{
+            color: #FFFFFF !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+        }}
+        /* -------------------------------------- */
         
         /* Premium Glass Cards */
         .premium-card {{
@@ -88,10 +101,10 @@ def inject_premium_dark_theme():
             transform: translateY(-2px) scale(1.01) !important;
         }}
 
-        /* Inputs */
+        /* Inputs - Increased Brightness for Readability */
         .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {{
-            background-color: rgba(255, 255, 255, 0.03) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important; 
             color: #FFFFFF !important;
             border-radius: 10px !important;
         }}
@@ -101,8 +114,8 @@ def inject_premium_dark_theme():
         }}
 
         /* Typography */
-        .text-muted {{ color: {COLORS["text_muted"]}; font-size: 14px; line-height: 1.6; font-weight: 400; }}
-        .text-secondary {{ color: {COLORS["secondary"]}; line-height: 1.6; }}
+        .text-muted {{ color: {COLORS["text_muted"]} !important; font-size: 14px; line-height: 1.6; font-weight: 400; }}
+        .text-secondary {{ color: {COLORS["secondary"]} !important; line-height: 1.6; }}
         .score-huge {{ font-size: 64px; font-weight: 800; color: #FFFFFF; line-height: 1; margin: 10px 0; }}
     </style>
     """
