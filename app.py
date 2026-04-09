@@ -27,6 +27,15 @@ with st.sidebar:
     st.markdown(f"<h2 style='color: #FFFFFF;'>CreditSaathi <span style='color: {COLORS['accent']};'>.</span></h2>", unsafe_allow_html=True)
     st.markdown("<p style='color: #94A3B8; font-size: 14px; margin-bottom: 20px;'>Institutional Grade Engine</p>", unsafe_allow_html=True)
     
+    st.markdown("### ⚙️ Platform Settings")
+    
+    # 🌟 NEW GLOBAL LANGUAGE SELECTOR 🌟
+    st.session_state.lang = st.selectbox(
+        "🌐 Language", 
+        options=list(TRANSLATIONS.keys()), 
+        index=0
+    )
+    
     # Simplified Guided Navigation
     page = st.radio("Main Menu", [
         "🏠 Home", 
