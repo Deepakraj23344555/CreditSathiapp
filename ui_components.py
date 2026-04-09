@@ -16,7 +16,7 @@ COLORS = {
 }
 
 def inject_premium_css():
-    """Injects Apple/CRED level CSS with Glassmorphism, Animations, and Blobs."""
+    """Injects Apple/CRED level CSS with Glassmorphism, Animations, and high-contrast text fixes."""
     css = f"""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
@@ -38,14 +38,31 @@ def inject_premium_css():
         header {{ visibility: hidden; }}
         footer {{ visibility: hidden; }}
         
-        /* Sidebar Styling (Glass) */
+        /* --- HIGH CONTRAST TEXT FIXES --- */
+        /* Force radio buttons, toggles, and standard text to be white */
+        .stRadio label p, .stToggle label p, .stMarkdown p, .stCheckbox label p {{
+            color: {COLORS["text_main"]} !important;
+        }}
+        
+        /* Sidebar Styling (Glass + Bright Text) */
         [data-testid="stSidebar"] {{
             background: rgba(11, 31, 58, 0.4) !important;
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border-right: 1px solid {COLORS["white_border"]};
         }}
-        [data-testid="stSidebarNav"] span {{ color: {COLORS["text_main"]} !important; font-weight: 500; }}
+        
+        /* Force all sidebar text to be bright */
+        [data-testid="stSidebar"] p, [data-testid="stSidebar"] div, [data-testid="stSidebar"] span {{
+            color: {COLORS["text_main"]} !important;
+        }}
+        
+        /* Trust Layer text at the bottom */
+        .trust-layer {{
+            color: {COLORS["text_muted"]} !important;
+            text-align: center; font-size: 13px; padding: 20px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px;
+        }}
+        /* -------------------------------- */
         
         /* Smooth Fade-In Animation */
         @keyframes slideUpFade {{
@@ -135,7 +152,6 @@ def inject_premium_css():
     </style>
     """
     st.markdown(css, unsafe_allow_html=True)
-
 # --- REUSABLE HTML COMPONENTS ---
 
 def metric_kpi(title, value, icon, trend=None):
