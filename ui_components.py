@@ -49,7 +49,7 @@ def inject_premium_dark_theme():
             letter-spacing: -0.02em;
         }}
 
-        /* 3. BULLETPROOF INPUT LABELS (Fixes invisible form headers) */
+        /* 3. BULLETPROOF INPUT LABELS (Fixes form headers) */
         div[data-testid="stWidgetLabel"] p, 
         div[data-testid="stWidgetLabel"] span,
         label p, 
@@ -57,7 +57,7 @@ def inject_premium_dark_theme():
         .stRadio label p, 
         .stCheckbox label p,
         .stSlider label p {{
-            color: #CBD5F5 !important; /* Bright light blue for perfect contrast */
+            color: #CBD5F5 !important; /* Bright light blue */
             font-weight: 600 !important;
             font-size: 14px !important;
             letter-spacing: 0.3px !important;
@@ -65,17 +65,17 @@ def inject_premium_dark_theme():
             visibility: visible !important;
         }}
 
-        /* 4. Streamlit TABS (Top navigation inside pages) */
+        /* 4. Streamlit TABS */
         button[data-baseweb="tab"] {{
             background-color: transparent !important;
         }}
         button[data-baseweb="tab"] p {{
-            color: #94A3B8 !important; /* Unselected Tab Text */
+            color: #94A3B8 !important; 
             font-weight: 500 !important;
             font-size: 16px !important;
         }}
         button[data-baseweb="tab"][aria-selected="true"] p {{
-            color: #14B8A6 !important; /* Selected Tab Text - Glowing Teal */
+            color: #14B8A6 !important; 
             font-weight: 700 !important;
         }}
         button[data-baseweb="tab"][aria-selected="true"] {{
@@ -143,21 +143,47 @@ def inject_premium_dark_theme():
             transform: translateY(-2px) scale(1.01) !important;
         }}
 
-        /* Inputs */
+        /* =========================================================
+           CRITICAL FIX: TEXT INSIDE WHITE INPUT BOXES
+           ========================================================= */
         .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {{
-            background-color: rgba(255, 255, 255, 0.05) !important;
+            background-color: #FFFFFF !important; /* Force white background */
             border: 1px solid rgba(255, 255, 255, 0.2) !important; 
-            color: #FFFFFF !important;
+            color: #0B1F3A !important; /* Force DARK text so it is visible */
             border-radius: 10px !important;
+            font-weight: 500 !important;
         }}
+        
+        /* Dropdown Selected Value Text */
+        .stSelectbox div[data-baseweb="select"] span {{
+            color: #0B1F3A !important;
+        }}
+
+        /* Focus borders */
         .stTextInput input:focus, .stNumberInput input:focus, .stSelectbox div[data-baseweb="select"]:focus-within {{
             border-color: #14B8A6 !important;
             box-shadow: 0 0 0 1px #14B8A6 !important;
         }}
-        /* Dropdown options text fix */
-        li[role="option"] {{
+        
+        /* Dropdown options menu (when clicked) */
+        li[role="option"], li[role="option"] span {{
             color: #0B1F3A !important; 
+            background-color: #FFFFFF !important;
         }}
+        
+        /* Placeholder text (e.g. "Press Enter to submit") */
+        ::placeholder {{
+            color: #94A3B8 !important;
+            opacity: 1 !important;
+        }}
+        
+        /* Fix the Slider Number Value making it bright white */
+        .stSlider div[data-testid="stThumbValue"] {{
+            color: #FFFFFF !important;
+            font-weight: 700 !important;
+            font-size: 14px !important;
+        }}
+        /* ========================================================= */
 
         /* Custom Typography Classes */
         .text-muted {{ color: {COLORS["text_muted"]} !important; font-size: 14px; line-height: 1.6; font-weight: 400; }}
