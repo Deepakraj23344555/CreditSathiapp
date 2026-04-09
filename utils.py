@@ -8,23 +8,44 @@ COLORS = {
     "danger": "#EF4444", "text": "#1E293B", "surface": "rgba(255, 255, 255, 0.95)"
 }
 
-# --- Translations ---
+# --- GLOBAL TRANSLATIONS DICTIONARY ---
 TRANSLATIONS = {
-    "EN": {
-        "nav_home": "🏠 Home", "nav_assess": "👤 Start Assessment", "nav_dash": "📊 Dashboard",
-        "nav_gap": "📋 Gap Analysis & Plan", "nav_lenders": "🏦 Lenders", "nav_sim": "🧪 What-If Simulator",
-        "nav_ai": "🤖 AI Advisor", "trust_msg": "🔒 Bank-grade 256-bit encryption. RBI Compliant Data Security."
+    "English 🇺🇸": {
+        "nav_home": "🏠 Home", "nav_assess": "📝 Step 1: Enter Details", "nav_dash": "📊 Step 2: View Score",
+        "nav_gap": "📋 Action Plan", "nav_lenders": "🏦 Step 3: Get Loans", "nav_sim": "🧪 Simulator",
+        "nav_ai": "💡 AI Advisor"
     },
-    "HI": {
-        "nav_home": "🏠 होम", "nav_assess": "👤 मूल्यांकन शुरू करें", "nav_dash": "📊 डैशबोर्ड",
-        "nav_gap": "📋 गैप विश्लेषण", "nav_lenders": "🏦 ऋणदाता (Lenders)", "nav_sim": "🧪 सिमुलेटर",
-        "nav_ai": "🤖 एआई सलाहकार", "trust_msg": "🔒 बैंक-ग्रेड 256-बिट एन्क्रिप्शन। RBI अनुपालन डेटा सुरक्षा।"
+    "Hindi 🇮🇳": {
+        "nav_home": "🏠 होम", "nav_assess": "📝 चरण 1: विवरण दर्ज करें", "nav_dash": "📊 चरण 2: स्कोर देखें",
+        "nav_gap": "📋 कार्य योजना", "nav_lenders": "🏦 चरण 3: ऋण प्राप्त करें", "nav_sim": "🧪 सिमुलेटर",
+        "nav_ai": "💡 एआई सलाहकार"
+    },
+    "Spanish 🇪🇸": {
+        "nav_home": "🏠 Inicio", "nav_assess": "📝 Paso 1: Detalles", "nav_dash": "📊 Paso 2: Ver Puntaje",
+        "nav_gap": "📋 Plan de Acción", "nav_lenders": "🏦 Paso 3: Obtener Préstamos", "nav_sim": "🧪 Simulador",
+        "nav_ai": "💡 Asesor IA"
+    },
+    "French 🇫🇷": {
+        "nav_home": "🏠 Accueil", "nav_assess": "📝 Étape 1: Détails", "nav_dash": "📊 Étape 2: Voir le Score",
+        "nav_gap": "📋 Plan d'Action", "nav_lenders": "🏦 Étape 3: Obtenir des Prêts", "nav_sim": "🧪 Simulateur",
+        "nav_ai": "💡 Conseiller IA"
+    },
+    "Arabic 🇦🇪": {
+        "nav_home": "🏠 الرئيسية", "nav_assess": "📝 الخطوة 1: التفاصيل", "nav_dash": "📊 الخطوة 2: عرض النتيجة",
+        "nav_gap": "📋 خطة العمل", "nav_lenders": "🏦 الخطوة 3: الحصول قروض", "nav_sim": "🧪 محاكاة",
+        "nav_ai": "💡 مستشار ذكاء اصطناعي"
+    },
+    "Mandarin 🇨🇳": {
+        "nav_home": "🏠 首页", "nav_assess": "📝 第一步：输入详情", "nav_dash": "📊 第二步：查看分数",
+        "nav_gap": "📋 行动计划", "nav_lenders": "🏦 第三步：获取贷款", "nav_sim": "🧪 模拟器",
+        "nav_ai": "💡 AI 顾问"
     }
 }
 
 def t(key):
-    lang = st.session_state.get('lang', 'EN')
-    return TRANSLATIONS[lang].get(key, key)
+    """Fetches the translated string based on the selected language."""
+    lang = st.session_state.get('lang', 'English 🇺🇸')
+    return TRANSLATIONS.get(lang, TRANSLATIONS["English 🇺🇸"]).get(key, key)
 
 def hex_to_rgba(hex_code, alpha):
     hex_code = hex_code.lstrip('#')
