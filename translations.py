@@ -27,6 +27,12 @@ TRANSLATIONS = {
         "insights_title": "What’s Holding You Back",
         "lenders_title": "Loans You’re Eligible For Today",
         "trust_msg": "🔒 Bank-grade 256-bit encryption. RBI Compliant Data Security."
+        "nav_growth": "🚀 Growth & Capital",
+        "voice_btn": "🎤 Tap to Speak (Voice AI)",
+        "predictive_title": "🔮 Predictive Cashflow Radar",
+        "upi_title": "📱 Digital Trust (UPI Underwriting)",
+        "invoice_title": "📄 Invoice Discounting (Get Paid Early)",
+        "card_title": "💳 CreditSaathi Capital Card",
     },
     "hi": {
         "nav_home": "🏠 होम",
