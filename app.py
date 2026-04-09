@@ -5,7 +5,7 @@ import time
 from ui_components import inject_premium_dark_theme, metric_kpi, status_badge, premium_lender_card, apply_dark_theme, COLORS
 
 # --- BACKEND LOGIC (Untouched) ---
-from utils import create_gauge_chart, t, render_trust_layer
+from utils import create_gauge_chart, t, render_trust_layer, TRANSLATIONS
 from scoring import calculate_crs, get_advanced_lenders, get_esg_score
 from insights import get_behavioral_insights, generate_storytelling
 from simulator import render_simulator
